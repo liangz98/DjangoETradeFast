@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+    <!-- font-awesome CSS -->
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.min.css' %}">
+
+    {% block styleBody %}{% endblock %}
+
+    <title>快移平台{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% include 'header.html' with include_Type=template_include_type %}
+    {% block mainBody %}{% endblock %}
+    {% include 'footer.html' with include_Type=template_include_type %}
+    <!-- Optional JavaScript -->
+    <script src="{% static 'js/jQuery-Core-3.4.1/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+    {% block scriptBody %}{% endblock %}
+</body>
+</html>

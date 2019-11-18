@@ -1,0 +1,11 @@
+{% load static %}
+
+p {
+    background-color: darkseagreen;
+}
+
+.index-body {
+    background-image: url("images/index_bg_2.jpg");
+    height: 580px;
+    background-size: cover;
+}

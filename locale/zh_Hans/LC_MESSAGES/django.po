@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-26 11:52+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\DjangoETradeFast\settings.py:128
+msgid "中文简体"
+msgstr ""
+
+#: .\DjangoETradeFast\settings.py:129
+msgid "English"
+msgstr ""
+
+#: .\templates\footer.html:7
+msgid "footer_about"
+msgstr "关于我们"
+
+#: .\templates\footer.html:8
+msgid "footer_about_info_1"
+msgstr "提供营运资本咨询服务和更灵活的解决方案，改进营运资金成本和更好管理贸易风险。"
+
+#: .\templates\footer.html:9
+msgid "footer_about_info_2"
+msgstr "创新供应链服务模式：快移平台创始者及践行者。"
+
+#: .\templates\footer.html:10
+msgid "footer_about_info_3"
+msgstr "IFG的成员，充分利用全球经验，助中国的贸易合作伙伴，以加快国际化。"
+
+#: .\templates\footer.html:13
+msgid "footer_contactUS"
+msgstr "联系我们"
+
+#: .\templates\header.html:13
+msgid "welcomeLogin"
+msgstr "欢迎登录"

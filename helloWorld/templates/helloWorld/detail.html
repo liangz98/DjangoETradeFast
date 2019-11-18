@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+    {{ bodyContent }}
+
+    <h1>{{ hello }}</h1>
+    <h2>ID: {{ id }}</h2>
+    <h2>Year: {{ year }}</h2>
+
+    <p>
+        <a href="{% url 'helloWorld:index' %}">返回 Hello World 首页</a>
+    </p>
+</body>
+</html>

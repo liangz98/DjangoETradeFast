@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{# title #}
+{% block title %}- HelloWorld{% endblock %}
+
+{# style #}
+{% block styleBody %}
+    <link rel="stylesheet" type="text/css" href="{% static 'helloWorld/style.css' %}">
+{% endblock %}
+
+{# body #}
+{% block mainBody %}
+    <div class="container-fluid index-body">
+        <div class="container d-none">
+            {{ bodyContent }}222
+
+            <h1>{{ hello }}</h1>
+
+            <h1>timeZone: {{ timeZone }}</h1>
+
+            <h1>session_key: {{ session_key }}</h1>
+
+            <p>status: {{ status.account.accountName }}</p>
+
+            <p>
+                <a href="{% url 'helloWorld:index' %}">Hello World</a>
+                <a href="{% url 'polls:index' %}">Polls</a>
+            </p>
+
+            <p>
+                <a href="{% url 'helloWorld:detail' '2211' '2019' %}">详情</a>
+            </p>
+
+            <p>
+                <a href="{% url 'helloWorld:add' %}">新增</a>
+            </p>
+        </div>
+
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                #}
+{#            </div>#}
+{#        </div>#}
+
+        <div class="container d-none">
+            <div class="d-flex flex-row align-items-center " style="height: 580px">
+                <div class="">Flex item 1</div>
+                <div class="">Flex item 2</div>
+                <div class="">Flex item 3</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row" style="height: 580px">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <p>时间戳: {{ time_t }}</p>
+                            <p>排序前: {{ erp_params }}</p>
+                            <p>排序后: {{ refresh_params }}</p>
+
+                            <p>加密前: {{ str_md5 }}</p>
+                            <p>加密后: {{ str_md5_hl }}</p>
+                            <p>
+                                {% for item in erp_result_data %}
+{#                                    {{ item }}#}
+                                {%endfor%}
+                            </p>
+                            <p>{{ erp_result_data.0 }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-2">
+                            One of three columns
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-3">
+                            One of three columns
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-auto align-self-center bg-white">
+                    col-auto
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{# Script #}
+{% block scriptBody %}{% endblock %}

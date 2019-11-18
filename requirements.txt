@@ -1,0 +1,14 @@
+apscheduler
+certifi==2019.6.16
+chardet==3.0.4
+concurrent-log-handler==0.9.16
+Django==2.2.1
+idna==2.8
+portalocker==1.5.1
+pypiwin32==223
+pytz==2019.2
+pywin32==224
+requests==2.22.0
+sqlparse==0.3.0
+urllib3==1.25.3
+wincertstore==0.2

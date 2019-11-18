@@ -1,0 +1,33 @@
+{% load static %}
+{% load i18n %}
+{% if include_Type == 'simple' %}
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/Logo_loginH75.png' %}" width="100" class="d-inline-block align-top" alt="">
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="/">{% trans 'welcomeLogin' %} <span class="sr-only">(current)</span></a>
+                </div>
+            </div>
+
+{#            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">#}
+{#                <div class="navbar-nav">#}
+{#                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>#}
+{#                    <a class="nav-item nav-link" href="#">Features</a>#}
+{#                    <a class="nav-item nav-link" href="#">Pricing</a>#}
+{#                    <a class="nav-item nav-link disabled" href="#">Disabled</a>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+    </nav>
+{% else %}
+    <div class="container">
+        <p>深圳市快移网络科技控股有限公司</p>
+        <p>深圳市前海深港合作区前湾一路1号A栋201室</p>
+    </div>
+{% endif %}

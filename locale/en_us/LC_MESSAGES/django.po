@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-26 14:58+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\DjangoETradeFast\settings.py:128
+msgid "中文简体"
+msgstr ""
+
+#: .\DjangoETradeFast\settings.py:129
+msgid "English"
+msgstr ""
+
+#: .\templates\footer.html:7
+msgid "footer_about"
+msgstr "About Us"
+
+#: .\templates\footer.html:8
+msgid "footer_about_info_1"
+msgstr "Provide working capital advisory services and more flexible solutions, improve working capital costs and better manage trade risks."
+
+#: .\templates\footer.html:9
+msgid "footer_about_info_2"
+msgstr "Innovation of Supply Chain Service Model: Founder and Practitioner of Fast Moving Platform."
+
+#: .\templates\footer.html:10
+msgid "footer_about_info_3"
+msgstr "IFG members make full use of global experience to help Chinese trade partners to accelerate internationalization."
+
+#: .\templates\footer.html:13
+msgid "footer_contactUS"
+msgstr "Contact Us"
+
+#: .\templates\header.html:13
+msgid "welcomeLogin"
+msgstr "Welcome"

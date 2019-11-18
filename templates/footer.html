@@ -1,0 +1,87 @@
+{% load static %}
+{% load i18n %}
+{% if include_Type == 'simple' %}
+    <div class="container-fluid  bg-light h-100 d-inline-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <h4>{% trans 'footer_about' %}</h4>
+                    <p>{% trans 'footer_about_info_1' %}</p>
+                    <p>{% trans 'footer_about_info_2' %}</p>
+                    <p>{% trans 'footer_about_info_3' %}</p>
+                </div>
+                <div class="col-md">
+                    <h4>{% trans 'footer_contactUS' %}</h4>
+                    <p>深圳市快移网络科技控股有限公司</p>
+                    <p><i class="fas fa-map-marker-alt" style="color: #f0ad4e;"></i> 深圳市前海深港合作区前湾一路1号A栋201室</p>
+				    <p><i class="fas fa-phone-square" style="color: #f0ad4e;"></i> +86-755-82383763</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <p>Copyright © 2015-{% now "Y" %} 深圳市快移网络科技控股有限公司 版权所有</p>
+                    <p><a href="http://www.beian.miit.gov.cn/">粤ICP备17023256号-1</a></p>
+                </div>
+
+                <div class="col-auto">
+                    <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        {#            <select name="language">#}
+                        {#                {% get_current_language as LANGUAGE_CODE %}#}
+                        {#                {% get_available_languages as LANGUAGES %}#}
+                        {#                {% get_language_info_list for LANGUAGES as languages %}#}
+                        {#                {% for language in languages %}#}
+                        {#                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>#}
+                        {#                        {{ language.name_local }} ({{ language.code }})#}
+                        {#                    </option>#}
+                        {#                {% endfor %}#}
+                        {#            </select>#}
+                        {#            {{ LANGUAGE_CODE }}#}
+
+                        {% if LANGUAGE_CODE == 'en-us' %}
+                            <input name="language" type="hidden" value="zh-hans">
+                            <a href="javascript:void (0)" onclick="document.getElementById('changeLanguageForm').submit();">
+                                <img src="{% static 'images/language/zh-hans.png' %}" alt="zh-Hans"> 简体中文
+                            </a>
+                        {% else %}
+                            <input name="language" type="hidden" value="en-us">
+                            <a href="javascript:void (0)" onclick="document.getElementById('changeLanguageForm').submit();">
+                                <img src="{% static 'images/language/en-us.png' %}" alt="en-us"> English
+                            </a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <p>深圳市快移网络科技控股有限公司</p>
+        <p>深圳市前海深港合作区前湾一路1号A栋201室</p>
+
+        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+{#            <select name="language">#}
+{#                {% get_current_language as LANGUAGE_CODE %}#}
+{#                {% get_available_languages as LANGUAGES %}#}
+{#                {% get_language_info_list for LANGUAGES as languages %}#}
+{#                {% for language in languages %}#}
+{#                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>#}
+{#                        {{ language.name_local }} ({{ language.code }})#}
+{#                    </option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+
+            {% if LANGUAGE_CODE == 'en-us' %}
+                <input name="language" type="hidden" value="zh-hans">
+                 zh-hans
+            {% else %}
+                <input name="language" type="hidden" value="en-us">
+                en-us
+            {% endif %}
+            <input type="submit" value="Go">
+        </form>
+    </div>
+{% endif %}
