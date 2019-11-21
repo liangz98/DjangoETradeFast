@@ -229,7 +229,7 @@ def inventory_item(modify_time, page_size=100):
                         inventory.underway = dict_result_obj['underway']
 
                     # 检查库存商品是否已经存在, 存在的则进行更新
-                    inventory_filter_result = Inventory.objects.filter(goods_code=inventory.goods_code)
+                    inventory_filter_result = Inventory.objects.filter(sku_code=inventory.sku_code)
                     if len(inventory_filter_result) > 0:
                         inventory_filter_result.lock_size = inventory.lock_size
                         inventory_filter_result.quantity = inventory.quantity

@@ -11,6 +11,7 @@ pip-delete-this-directory.txt
 
 # Django stuff:
 DjangoETradeFast/settings.py
+DjangoETradeFast/__init__.py
 *.log
 local_settings.py
 db.sqlite3

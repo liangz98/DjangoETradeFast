@@ -108,7 +108,7 @@ def index(request):
 
     # 查询库存
     # print("inventory_item")
-    erp_inventory_result_object = inventory_item(obj_stamp)
+    # erp_inventory_result_object = inventory_item("1573369738000")
 
     # 查询出商品并带有规格列表
     # print("goods_spec_list")
