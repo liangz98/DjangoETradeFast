@@ -10,7 +10,7 @@ import requests
 import logging
 
 from timedTask.erpApi import trades, inventory_item, item_goods_query, allocation_in_change_bill_query, allocation_out_change_bill_query, purchase_query, goods_spec_query, storage_query, supplier_query, goods_spec_list, sale_stock_out_query
-from timedTask.models import Trades, Orders, Specs, Storage, GoodsSpecs, Goods, SaleStockDetails, SaleStock
+from timedTask.models import Trades, Orders, Specs, Storage, GoodsSpecs, Goods, SaleStockDetails, SaleStock, Inventory
 
 logger = logging.getLogger('etradeFast.custom')
 
@@ -48,7 +48,7 @@ def index(request):
     r = requests.post(post_url, headers=headers, json=params)
     result_object = r.json()
 
-    logger.debug(post_url + '\r\n' + str(params) + '\r\n' + str(result_object) + '\r\n')
+    # logger.debug(post_url + '\r\n' + str(params) + '\r\n' + str(result_object) + '\r\n')
     # logger.debug('请求地址: ' + post_url + ' \r\n请求数据: ' + str(params))
 
     # 删除数据库
@@ -101,18 +101,31 @@ def index(request):
     # ==============================================================================================
     # 已初始化的数据
     # 查询仓库
+    # print("start ---test")
     # erp_storage_result_object = storage_query(1, 100)
+    # print("end ---test")
 
     # 查询订单
     # erp_result_object = trades(obj_stamp)
 
     # 查询库存
     # print("inventory_item")
-    # erp_inventory_result_object = inventory_item("1573369738000")
+    # erp_inventory_result_object = inventory_item(obj_stamp)
 
     # 查询出商品并带有规格列表
     # print("goods_spec_list")
     # erp_goods_spec_list_result_object = goods_spec_list(obj_stamp)
+
+    result_queryset = Inventory.objects.filter(sku_code='501#BS')
+    if len(result_queryset) > 0:
+        for inventory_result in result_queryset:
+            # print(inventory_filter_result.quantity)
+            print("%s : %f" % (inventory_result.sku_code, inventory_result.quantity))
+            inventory_result.lock_size = 0
+            inventory_result.quantity = 1001
+            inventory_result.underway = 0
+            inventory_result.save()
+            print("%s : %f" % (inventory_result.sku_code, inventory_result.quantity))
 
     # template = loader.get_template('helloWorld/index')
     context = {

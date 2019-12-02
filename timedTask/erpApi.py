@@ -34,142 +34,147 @@ def trades(obj_stamp, page=500, limit=200):
         # 接口请求
         erp_post_url = erp_api_url + '/erp/opentrade/query/trades'
         erp_r = requests.post(erp_post_url, json=erp_params)
-        erp_result_object = erp_r.json()
 
-        # 写日志
-        logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
+        if erp_r.content:
+            erp_result_object = erp_r.json()
 
-        # 写入数据库
-        if "data" in erp_result_object and len(erp_result_object['data']) > 0:
-            for dict_result_obj in erp_result_object['data']:
-                trade = Trades()
-                if "shop_name" in dict_result_obj.keys():
-                    trade.shop_name = dict_result_obj['shop_name']
-                if "shop_nick" in dict_result_obj.keys():
-                    trade.shop_nick = dict_result_obj['shop_nick']
-                if "storage_name" in dict_result_obj.keys():
-                    trade.storage_name = dict_result_obj['storage_name']
-                if "storage_code" in dict_result_obj.keys():
-                    trade.storage_code = dict_result_obj['storage_code']
-                if "trade_no" in dict_result_obj.keys():
-                    trade.trade_no = dict_result_obj['trade_no']
-                if "buyer_msg" in dict_result_obj.keys():
-                    trade.buyer_msg = dict_result_obj['buyer_msg']
-                if "seller_msg" in dict_result_obj.keys():
-                    trade.seller_msg = dict_result_obj['seller_msg']
-                if "oln_status" in dict_result_obj.keys():
-                    trade.oln_status = dict_result_obj['oln_status']
-                if "buyer_account" in dict_result_obj.keys():
-                    trade.buyer_account = dict_result_obj['buyer_account']
-                if "buyer" in dict_result_obj.keys():
-                    trade.buyer = dict_result_obj['buyer']
-                if "receiver" in dict_result_obj.keys():
-                    trade.receiver = dict_result_obj['receiver']
-                if "phone" in dict_result_obj.keys():
-                    trade.phone = dict_result_obj['phone']
-                if "country" in dict_result_obj.keys():
-                    trade.country = dict_result_obj['country']
-                if "province" in dict_result_obj.keys():
-                    trade.province = dict_result_obj['province']
-                if "city" in dict_result_obj.keys():
-                    trade.city = dict_result_obj['city']
-                if "district" in dict_result_obj.keys():
-                    trade.district = dict_result_obj['district']
-                if "address" in dict_result_obj.keys():
-                    trade.address = dict_result_obj['address']
-                if "create_time" in dict_result_obj.keys() and int(dict_result_obj['create_time']) > 0:
-                    trade.create_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['create_time']) / 1000)
-                if "modify_time" in dict_result_obj.keys() and int(dict_result_obj['modify_time']) > 0:
-                    trade.modify_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['modify_time']) / 1000)
-                if "send_time" in dict_result_obj.keys() and int(dict_result_obj['send_time']) > 0:
-                    trade.send_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['send_time']) / 1000)
-                if "pay_time" in dict_result_obj.keys() and int(dict_result_obj['pay_time']) > 0:
-                    trade.pay_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['pay_time']) / 1000)
-                if "end_time" in dict_result_obj.keys() and int(dict_result_obj['end_time']) > 0:
-                    trade.end_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['end_time']) / 1000)
-                if "status" in dict_result_obj.keys():
-                    trade.status = dict_result_obj['status']
-                if "is_pay" in dict_result_obj.keys():
-                    trade.is_pay = dict_result_obj['is_pay']
-                if "is_exception_trade" in dict_result_obj.keys():
-                    trade.is_exception_trade = dict_result_obj['is_exception_trade']
-                if "tp_tid" in dict_result_obj.keys():
-                    trade.tp_tid = dict_result_obj['tp_tid']
-                if "source_platform" in dict_result_obj.keys():
-                    trade.source_platform = dict_result_obj['source_platform']
-                if "sum_sale" in dict_result_obj.keys():
-                    trade.sum_sale = dict_result_obj['sum_sale']
-                if "post_fee" in dict_result_obj.keys():
-                    trade.post_fee = dict_result_obj['post_fee']
-                if "paid_fee" in dict_result_obj.keys():
-                    trade.paid_fee = dict_result_obj['paid_fee']
-                if "discount_fee" in dict_result_obj.keys():
-                    trade.discount_fee = dict_result_obj['discount_fee']
-                if "service_fee" in dict_result_obj.keys():
-                    trade.service_fee = dict_result_obj['service_fee']
-                if "has_refund" in dict_result_obj.keys():
-                    trade.has_refund = dict_result_obj['has_refund']
-                if "oln_order_list" in dict_result_obj.keys():
-                    trade.oln_order_list = dict_result_obj['oln_order_list']
-                if "is_small_trade" in dict_result_obj.keys():
-                    trade.is_small_trade = dict_result_obj['is_small_trade']
-                if "process_status" in dict_result_obj.keys():
-                    trade.process_status = dict_result_obj['process_status']
-                if "trade_type" in dict_result_obj.keys():
-                    trade.trade_type = dict_result_obj['trade_type']
-                if "mark" in dict_result_obj.keys():
-                    trade.mark = dict_result_obj['mark']
-                if "flag" in dict_result_obj.keys():
-                    trade.flag = dict_result_obj['flag']
-                if "pay_no" in dict_result_obj.keys():
-                    trade.pay_no = dict_result_obj['pay_no']
-                if "pay_type" in dict_result_obj.keys():
-                    trade.pay_type = dict_result_obj['pay_type']
-                if "currency_code" in dict_result_obj.keys():
-                    trade.currency_code = dict_result_obj['currency_code']
-                if "currency_sum" in dict_result_obj.keys():
-                    trade.currency_sum = dict_result_obj['currency_sum']
+            # 写日志
+            logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
 
-                trade.save()
+            # 写入数据库
+            if "data" in erp_result_object and len(erp_result_object['data']) > 0:
+                for dict_result_obj in erp_result_object['data']:
+                    trade = Trades()
+                    if "shop_name" in dict_result_obj.keys():
+                        trade.shop_name = dict_result_obj['shop_name']
+                    if "shop_nick" in dict_result_obj.keys():
+                        trade.shop_nick = dict_result_obj['shop_nick']
+                    if "storage_name" in dict_result_obj.keys():
+                        trade.storage_name = dict_result_obj['storage_name']
+                    if "storage_code" in dict_result_obj.keys():
+                        trade.storage_code = dict_result_obj['storage_code']
+                    if "trade_no" in dict_result_obj.keys():
+                        trade.trade_no = dict_result_obj['trade_no']
+                    if "buyer_msg" in dict_result_obj.keys():
+                        trade.buyer_msg = dict_result_obj['buyer_msg']
+                    if "seller_msg" in dict_result_obj.keys():
+                        trade.seller_msg = dict_result_obj['seller_msg']
+                    if "oln_status" in dict_result_obj.keys():
+                        trade.oln_status = dict_result_obj['oln_status']
+                    if "buyer_account" in dict_result_obj.keys():
+                        trade.buyer_account = dict_result_obj['buyer_account']
+                    if "buyer" in dict_result_obj.keys():
+                        trade.buyer = dict_result_obj['buyer']
+                    if "receiver" in dict_result_obj.keys():
+                        trade.receiver = dict_result_obj['receiver']
+                    if "phone" in dict_result_obj.keys():
+                        trade.phone = dict_result_obj['phone']
+                    if "country" in dict_result_obj.keys():
+                        trade.country = dict_result_obj['country']
+                    if "province" in dict_result_obj.keys():
+                        trade.province = dict_result_obj['province']
+                    if "city" in dict_result_obj.keys():
+                        trade.city = dict_result_obj['city']
+                    if "district" in dict_result_obj.keys():
+                        trade.district = dict_result_obj['district']
+                    if "address" in dict_result_obj.keys():
+                        trade.address = dict_result_obj['address']
+                    if "create_time" in dict_result_obj.keys() and int(dict_result_obj['create_time']) > 0:
+                        trade.create_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['create_time']) / 1000)
+                    if "modify_time" in dict_result_obj.keys() and int(dict_result_obj['modify_time']) > 0:
+                        trade.modify_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['modify_time']) / 1000)
+                    if "send_time" in dict_result_obj.keys() and int(dict_result_obj['send_time']) > 0:
+                        trade.send_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['send_time']) / 1000)
+                    if "pay_time" in dict_result_obj.keys() and int(dict_result_obj['pay_time']) > 0:
+                        trade.pay_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['pay_time']) / 1000)
+                    if "end_time" in dict_result_obj.keys() and int(dict_result_obj['end_time']) > 0:
+                        trade.end_time = timezone.datetime.utcfromtimestamp(int(dict_result_obj['end_time']) / 1000)
+                    if "status" in dict_result_obj.keys():
+                        trade.status = dict_result_obj['status']
+                    if "is_pay" in dict_result_obj.keys():
+                        trade.is_pay = dict_result_obj['is_pay']
+                    if "is_exception_trade" in dict_result_obj.keys():
+                        trade.is_exception_trade = dict_result_obj['is_exception_trade']
+                    if "tp_tid" in dict_result_obj.keys():
+                        trade.tp_tid = dict_result_obj['tp_tid']
+                    if "source_platform" in dict_result_obj.keys():
+                        trade.source_platform = dict_result_obj['source_platform']
+                    if "sum_sale" in dict_result_obj.keys():
+                        trade.sum_sale = dict_result_obj['sum_sale']
+                    if "post_fee" in dict_result_obj.keys():
+                        trade.post_fee = dict_result_obj['post_fee']
+                    if "paid_fee" in dict_result_obj.keys():
+                        trade.paid_fee = dict_result_obj['paid_fee']
+                    if "discount_fee" in dict_result_obj.keys():
+                        trade.discount_fee = dict_result_obj['discount_fee']
+                    if "service_fee" in dict_result_obj.keys():
+                        trade.service_fee = dict_result_obj['service_fee']
+                    if "has_refund" in dict_result_obj.keys():
+                        trade.has_refund = dict_result_obj['has_refund']
+                    if "oln_order_list" in dict_result_obj.keys():
+                        trade.oln_order_list = dict_result_obj['oln_order_list']
+                    if "is_small_trade" in dict_result_obj.keys():
+                        trade.is_small_trade = dict_result_obj['is_small_trade']
+                    if "process_status" in dict_result_obj.keys():
+                        trade.process_status = dict_result_obj['process_status']
+                    if "trade_type" in dict_result_obj.keys():
+                        trade.trade_type = dict_result_obj['trade_type']
+                    if "mark" in dict_result_obj.keys():
+                        trade.mark = dict_result_obj['mark']
+                    if "flag" in dict_result_obj.keys():
+                        trade.flag = dict_result_obj['flag']
+                    if "pay_no" in dict_result_obj.keys():
+                        trade.pay_no = dict_result_obj['pay_no']
+                    if "pay_type" in dict_result_obj.keys():
+                        trade.pay_type = dict_result_obj['pay_type']
+                    if "currency_code" in dict_result_obj.keys():
+                        trade.currency_code = dict_result_obj['currency_code']
+                    if "currency_sum" in dict_result_obj.keys():
+                        trade.currency_sum = dict_result_obj['currency_sum']
 
-                if "orders" in dict_result_obj.keys() and len(dict_result_obj['orders']) > 0:
-                    for dict_order_result_obj in dict_result_obj['orders']:
-                        order = Orders()
-                        order.trade_id = trade.trade_id
-                        if "size" in dict_order_result_obj.keys():
-                            order.size = dict_order_result_obj['size']
-                        if "price" in dict_order_result_obj.keys():
-                            order.price = dict_order_result_obj['price']
-                        if "receivable" in dict_order_result_obj.keys():
-                            order.receivable = dict_order_result_obj['receivable']
-                        if "payment" in dict_order_result_obj.keys():
-                            order.payment = dict_order_result_obj['payment']
-                        if "tp_tid" in dict_order_result_obj.keys():
-                            order.tp_tid = dict_order_result_obj['tp_tid']
-                        if "oln_item_id" in dict_order_result_obj.keys():
-                            order.oln_item_id = dict_order_result_obj['oln_item_id']
-                        if "oln_status" in dict_order_result_obj.keys():
-                            order.oln_status = dict_order_result_obj['oln_status']
-                        if "oln_sku_id" in dict_order_result_obj.keys():
-                            order.oln_sku_id = dict_order_result_obj['oln_sku_id']
-                        if "status" in dict_order_result_obj.keys():
-                            order.status = dict_order_result_obj['status']
-                        if "orders_id" in dict_order_result_obj.keys():
-                            order.orders_id = dict_order_result_obj['order_id']
-                        if "oln_item_name" in dict_order_result_obj.keys():
-                            order.oln_item_name = dict_order_result_obj['oln_item_name']
-                        if "has_refund" in dict_order_result_obj.keys():
-                            order.has_refund = dict_order_result_obj['has_refund']
-                        if "tp_oid" in dict_order_result_obj.keys():
-                            order.tp_oid = dict_order_result_obj['tp_oid']
-                        if "is_gift" in dict_order_result_obj.keys():
-                            order.is_gift = dict_order_result_obj['is_gift']
+                    trade.save()
 
-                        order.save()
+                    if "orders" in dict_result_obj.keys() and len(dict_result_obj['orders']) > 0:
+                        for dict_order_result_obj in dict_result_obj['orders']:
+                            order = Orders()
+                            order.trade_id = trade.trade_id
+                            if "size" in dict_order_result_obj.keys():
+                                order.size = dict_order_result_obj['size']
+                            if "price" in dict_order_result_obj.keys():
+                                order.price = dict_order_result_obj['price']
+                            if "receivable" in dict_order_result_obj.keys():
+                                order.receivable = dict_order_result_obj['receivable']
+                            if "payment" in dict_order_result_obj.keys():
+                                order.payment = dict_order_result_obj['payment']
+                            if "tp_tid" in dict_order_result_obj.keys():
+                                order.tp_tid = dict_order_result_obj['tp_tid']
+                            if "oln_item_id" in dict_order_result_obj.keys():
+                                order.oln_item_id = dict_order_result_obj['oln_item_id']
+                            if "oln_status" in dict_order_result_obj.keys():
+                                order.oln_status = dict_order_result_obj['oln_status']
+                            if "oln_sku_id" in dict_order_result_obj.keys():
+                                order.oln_sku_id = dict_order_result_obj['oln_sku_id']
+                            if "status" in dict_order_result_obj.keys():
+                                order.status = dict_order_result_obj['status']
+                            if "orders_id" in dict_order_result_obj.keys():
+                                order.orders_id = dict_order_result_obj['order_id']
+                            if "oln_item_name" in dict_order_result_obj.keys():
+                                order.oln_item_name = dict_order_result_obj['oln_item_name']
+                            if "has_refund" in dict_order_result_obj.keys():
+                                order.has_refund = dict_order_result_obj['has_refund']
+                            if "tp_oid" in dict_order_result_obj.keys():
+                                order.tp_oid = dict_order_result_obj['tp_oid']
+                            if "is_gift" in dict_order_result_obj.keys():
+                                order.is_gift = dict_order_result_obj['is_gift']
+
+                            order.save()
+
+            else:
+                # 结束子循环
+                break
 
         else:
-            # 结束子循环
-            break
+            print(erp_r.text)
 
     # 返回请求结果
     return True
@@ -200,75 +205,79 @@ def inventory_item(modify_time, page_size=100):
             # 接口请求
             erp_post_url = erp_api_url + '/erp/open/inventory/items/get/by/modifytime'
             erp_r = requests.post(erp_post_url, json=erp_params)
-            erp_result_object = erp_r.json()
+            if erp_r.content:
+                erp_result_object = erp_r.json()
 
-            # 写日志
-            logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
+                # 写日志
+                logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
 
-            # 写入数据库
-            if "data" in erp_result_object and len(erp_result_object['data']) > 0:
-                for dict_result_obj in erp_result_object['data']:
-                    inventory = Inventory()
-                    inventory.storage_id = storage.storage_id
+                # 写入数据库
+                if "data" in erp_result_object and len(erp_result_object['data']) > 0:
+                    for dict_result_obj in erp_result_object['data']:
+                        inventory = Inventory()
+                        inventory.storage_id = storage.storage_id
 
-                    if "goods_code" in dict_result_obj.keys():
-                        inventory.goods_code = dict_result_obj['goods_code']
+                        if "goods_code" in dict_result_obj.keys():
+                            inventory.goods_code = dict_result_obj['goods_code']
 
-                    inventory.storage_code = storage.storage_code
+                        inventory.storage_code = storage.storage_code
 
-                    if "lock_size" in dict_result_obj.keys():
-                        inventory.lock_size = dict_result_obj['lock_size']
+                        if "lock_size" in dict_result_obj.keys():
+                            inventory.lock_size = dict_result_obj['lock_size']
 
-                    if "quantity" in dict_result_obj.keys():
-                        inventory.quantity = dict_result_obj['quantity']
+                        if "quantity" in dict_result_obj.keys():
+                            inventory.quantity = dict_result_obj['quantity']
 
-                    if "sku_code" in dict_result_obj.keys():
-                        inventory.sku_code = dict_result_obj['sku_code']
+                        if "sku_code" in dict_result_obj.keys():
+                            inventory.sku_code = dict_result_obj['sku_code']
 
-                    if "underway" in dict_result_obj.keys():
-                        inventory.underway = dict_result_obj['underway']
+                        if "underway" in dict_result_obj.keys():
+                            inventory.underway = dict_result_obj['underway']
 
-                    # 检查库存商品是否已经存在, 存在的则进行更新
-                    inventory_filter_result = Inventory.objects.filter(sku_code=inventory.sku_code)
-                    if len(inventory_filter_result) > 0:
-                        inventory_filter_result.lock_size = inventory.lock_size
-                        inventory_filter_result.quantity = inventory.quantity
-                        inventory_filter_result.underway = inventory.underway
-                        inventory_filter_result.update()
-                        print("update inventory")
-                        # 赋值给子集合用
-                        # inventory.inventory_id = inventory_filter_result.inventory_id
-                        # continue
-                    else:
-                        # 写入
-                        inventory.save()
+                        # 检查库存商品是否已经存在, 存在的则进行更新
+                        result_queryset = Inventory.objects.filter(sku_code=inventory.sku_code)
+                        if len(result_queryset) > 0:
+                            for inventory_result in result_queryset:
+                                inventory_result.lock_size = inventory.lock_size
+                                inventory_result.quantity = inventory.quantity
+                                inventory_result.underway = inventory.underway
+                                inventory_result.save()
+                                print("update inventory")
+                            # 赋值给子集合用
+                            # inventory.inventory_id = inventory_filter_result.inventory_id
+                            # continue
+                        else:
+                            # 写入
+                            inventory.save()
 
-                    # 删除原来的库存批次, 重新写入
-                    Batches.objects.filter(inventory_id=inventory.inventory_id).delete()
-                    if "batchs" in dict_result_obj.keys() and len(dict_result_obj['batchs']) > 0:
-                        for dict_batches_result_obj in dict_result_obj['batchs']:
-                            batches = Batches()
-                            batches.inventory_id = inventory.inventory_id
+                        # 删除原来的库存批次, 重新写入
+                        Batches.objects.filter(inventory_id=inventory.inventory_id).delete()
+                        if "batchs" in dict_result_obj.keys() and len(dict_result_obj['batchs']) > 0:
+                            for dict_batches_result_obj in dict_result_obj['batchs']:
+                                batches = Batches()
+                                batches.inventory_id = inventory.inventory_id
 
-                            if "batch_no" in dict_batches_result_obj.keys():
-                                batches.batch_no = dict_batches_result_obj['batch_no']
+                                if "batch_no" in dict_batches_result_obj.keys():
+                                    batches.batch_no = dict_batches_result_obj['batch_no']
 
-                            if "expired_date" in dict_batches_result_obj.keys() and int(dict_batches_result_obj['expired_date']) > 0:
-                                print("expired_date: %d" % dict_batches_result_obj['expired_date'])
-                                batches.expired_date = timezone.datetime.utcfromtimestamp(int(dict_batches_result_obj['expired_date']) / 1000)
+                                if "expired_date" in dict_batches_result_obj.keys() and int(dict_batches_result_obj['expired_date']) > 0:
+                                    print("expired_date: %d" % dict_batches_result_obj['expired_date'])
+                                    batches.expired_date = timezone.datetime.utcfromtimestamp(int(dict_batches_result_obj['expired_date']) / 1000)
 
-                            if "num" in dict_batches_result_obj.keys():
-                                batches.num = dict_batches_result_obj['num']
+                                if "num" in dict_batches_result_obj.keys():
+                                    batches.num = dict_batches_result_obj['num']
 
-                            if "produce_date" in dict_batches_result_obj.keys() and int(dict_batches_result_obj['produce_date']) > 0:
-                                print("produce_date: %d" % dict_batches_result_obj['produce_date'])
-                                batches.produce_date = timezone.datetime.utcfromtimestamp(int(dict_batches_result_obj['produce_date']) / 1000)
+                                if "produce_date" in dict_batches_result_obj.keys() and int(dict_batches_result_obj['produce_date']) > 0:
+                                    print("produce_date: %d" % dict_batches_result_obj['produce_date'])
+                                    batches.produce_date = timezone.datetime.utcfromtimestamp(int(dict_batches_result_obj['produce_date']) / 1000)
 
-                            batches.save()
+                                batches.save()
 
+                else:
+                    # 结束子循环
+                    break
             else:
-                # 结束子循环
-                break
+                print(erp_r.text)
 
     # 返回请求结果
     return True
@@ -323,119 +332,125 @@ def goods_spec_list(modify_time, page=100, limit=200):
         # 接口请求
         erp_post_url = erp_api_url + '/erp/goods/spec/open/query/goodswithspeclist'
         erp_r = requests.post(erp_post_url, json=erp_params)
-        erp_result_object = erp_r.json()
 
-        # 写日志
-        logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
+        if erp_r.content:
+            erp_result_object = erp_r.json()
 
-        # 写入数据库
-        if "data" in erp_result_object and len(erp_result_object['data']) > 0:
-            for dict_result_obj in erp_result_object['data']:
-                goods = Goods()
-                if "brand_name" in dict_result_obj.keys():
-                    goods.brand_name = dict_result_obj['brand_name']
+            # 写日志
+            logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
 
-                if "catagory_name" in dict_result_obj.keys():
-                    goods.category_name = dict_result_obj['catagory_name']
+            # 写入数据库
+            if "data" in erp_result_object and len(erp_result_object['data']) > 0:
+                for dict_result_obj in erp_result_object['data']:
+                    goods = Goods()
+                    if "brand_name" in dict_result_obj.keys():
+                        goods.brand_name = dict_result_obj['brand_name']
 
-                if "expiration" in dict_result_obj.keys():
-                    goods.expiration = dict_result_obj['expiration']
+                    if "catagory_name" in dict_result_obj.keys():
+                        goods.category_name = dict_result_obj['catagory_name']
 
-                if "goods_code" in dict_result_obj.keys():
-                    goods.goods_code = dict_result_obj['goods_code']
+                    if "expiration" in dict_result_obj.keys():
+                        goods.expiration = dict_result_obj['expiration']
 
-                if "goods_name" in dict_result_obj.keys():
-                    goods.goods_name = dict_result_obj['goods_name']
+                    if "goods_code" in dict_result_obj.keys():
+                        goods.goods_code = dict_result_obj['goods_code']
 
-                if "manufacturer_name" in dict_result_obj.keys():
-                    goods.manufacturer_name = dict_result_obj['manufacturer_name']
+                    if "goods_name" in dict_result_obj.keys():
+                        goods.goods_name = dict_result_obj['goods_name']
 
-                if "pic" in dict_result_obj.keys():
-                    goods.pic = dict_result_obj['pic']
+                    if "manufacturer_name" in dict_result_obj.keys():
+                        goods.manufacturer_name = dict_result_obj['manufacturer_name']
 
-                if "purchase_num" in dict_result_obj.keys():
-                    goods.purchase_num = dict_result_obj['purchase_num']
+                    if "pic" in dict_result_obj.keys():
+                        goods.pic = dict_result_obj['pic']
 
-                if "purchase_type_name" in dict_result_obj.keys():
-                    goods.purchase_type_name = dict_result_obj['purchase_type_name']
+                    if "purchase_num" in dict_result_obj.keys():
+                        goods.purchase_num = dict_result_obj['purchase_num']
 
-                if "remark" in dict_result_obj.keys():
-                    goods.remark = dict_result_obj['remark']
+                    if "purchase_type_name" in dict_result_obj.keys():
+                        goods.purchase_type_name = dict_result_obj['purchase_type_name']
 
-                if "tag_price" in dict_result_obj.keys():
-                    goods.tag_price = dict_result_obj['tag_price']
+                    if "remark" in dict_result_obj.keys():
+                        goods.remark = dict_result_obj['remark']
 
-                if "unit_name" in dict_result_obj.keys():
-                    goods.unit_name = dict_result_obj['unit_name']
+                    if "tag_price" in dict_result_obj.keys():
+                        goods.tag_price = dict_result_obj['tag_price']
 
-                # 检查商品是否已经存在, 存在的则进行更新
-                goods_filter_result = Goods.objects.filter(goods_code=goods.goods_code)
-                if len(goods_filter_result) > 0:
-                    goods_filter_result.brand_name = goods.brand_name
-                    goods_filter_result.catagory_name = goods.category_name
-                    goods_filter_result.expiration = goods.expiration
-                    goods_filter_result.goods_name = goods.goods_name
-                    goods_filter_result.manufacturer_name = goods.manufacturer_name
-                    goods_filter_result.pic = goods.pic
-                    goods_filter_result.purchase_num = goods.purchase_num
-                    goods_filter_result.purchase_type_name = goods.purchase_type_name
-                    goods_filter_result.remark = goods.remark
-                    goods_filter_result.tag_price = goods.tag_price
-                    goods_filter_result.unit_name = goods.unit_name
-                    goods_filter_result.update()
-                    # continue
-                else:
-                    # 写入
-                    goods.save()
+                    if "unit_name" in dict_result_obj.keys():
+                        goods.unit_name = dict_result_obj['unit_name']
 
-                # 删除原来的商品规格, 重新写入
-                GoodsSpecs.objects.filter(goods_code=goods.goods_code).delete()
-                if "specs" in dict_result_obj.keys() and len(dict_result_obj['specs']) > 0:
-                    for dict_specs_result_obj in dict_result_obj['specs']:
-                        goods_specs = GoodsSpecs()
-                        goods_specs.goods_id = goods.goods_id
-                        goods_specs.goods_code = goods.goods_code
-                        if "barcode" in dict_specs_result_obj.keys():
-                            goods_specs.bar_code = dict_specs_result_obj['barcode']
+                    # 检查商品是否已经存在, 存在的则进行更新
+                    result_queryset = Goods.objects.filter(goods_code=goods.goods_code)
+                    if len(result_queryset) > 0:
+                        for goods_result in result_queryset:
+                            goods_result.brand_name = goods.brand_name
+                            goods_result.catagory_name = goods.category_name
+                            goods_result.expiration = goods.expiration
+                            goods_result.goods_name = goods.goods_name
+                            goods_result.manufacturer_name = goods.manufacturer_name
+                            goods_result.pic = goods.pic
+                            goods_result.purchase_num = goods.purchase_num
+                            goods_result.purchase_type_name = goods.purchase_type_name
+                            goods_result.remark = goods.remark
+                            goods_result.tag_price = goods.tag_price
+                            goods_result.unit_name = goods.unit_name
+                            goods_result.save()
+                        # continue
+                    else:
+                        # 写入
+                        goods.save()
 
-                        if "spec_code" in dict_specs_result_obj.keys():
-                            goods_specs.spec_code = dict_specs_result_obj['spec_code']
+                    # 删除原来的商品规格, 重新写入
+                    GoodsSpecs.objects.filter(goods_code=goods.goods_code).delete()
+                    if "specs" in dict_result_obj.keys() and len(dict_result_obj['specs']) > 0:
+                        for dict_specs_result_obj in dict_result_obj['specs']:
+                            goods_specs = GoodsSpecs()
+                            goods_specs.goods_id = goods.goods_id
+                            goods_specs.goods_code = goods.goods_code
+                            if "barcode" in dict_specs_result_obj.keys():
+                                goods_specs.bar_code = dict_specs_result_obj['barcode']
 
-                        if "height" in dict_specs_result_obj.keys():
-                            goods_specs.height = dict_specs_result_obj['height']
+                            if "spec_code" in dict_specs_result_obj.keys():
+                                goods_specs.spec_code = dict_specs_result_obj['spec_code']
 
-                        if "length" in dict_specs_result_obj.keys():
-                            goods_specs.length = dict_specs_result_obj['length']
+                            if "height" in dict_specs_result_obj.keys():
+                                goods_specs.height = dict_specs_result_obj['height']
 
-                        if "width" in dict_specs_result_obj.keys():
-                            goods_specs.width = dict_specs_result_obj['width']
+                            if "length" in dict_specs_result_obj.keys():
+                                goods_specs.length = dict_specs_result_obj['length']
 
-                        if "weight" in dict_specs_result_obj.keys():
-                            goods_specs.weight = dict_specs_result_obj['weight']
+                            if "width" in dict_specs_result_obj.keys():
+                                goods_specs.width = dict_specs_result_obj['width']
 
-                        if "pic" in dict_specs_result_obj.keys():
-                            goods_specs.pic = dict_specs_result_obj['pic']
+                            if "weight" in dict_specs_result_obj.keys():
+                                goods_specs.weight = dict_specs_result_obj['weight']
 
-                        if "prime_price" in dict_specs_result_obj.keys():
-                            goods_specs.prime_price = dict_specs_result_obj['prime_price']
+                            if "pic" in dict_specs_result_obj.keys():
+                                goods_specs.pic = dict_specs_result_obj['pic']
 
-                        if "sale_price" in dict_specs_result_obj.keys():
-                            goods_specs.sale_price = dict_specs_result_obj['sale_price']
+                            if "prime_price" in dict_specs_result_obj.keys():
+                                goods_specs.prime_price = dict_specs_result_obj['prime_price']
 
-                        if "wholesale_price" in dict_specs_result_obj.keys():
-                            goods_specs.wholesale_price = dict_specs_result_obj['wholesale_price']
+                            if "sale_price" in dict_specs_result_obj.keys():
+                                goods_specs.sale_price = dict_specs_result_obj['sale_price']
 
-                        if "spec1" in dict_specs_result_obj.keys():
-                            goods_specs.spec1 = dict_specs_result_obj['spec1']
+                            if "wholesale_price" in dict_specs_result_obj.keys():
+                                goods_specs.wholesale_price = dict_specs_result_obj['wholesale_price']
 
-                        if "barcode" in dict_specs_result_obj.keys():
-                            goods_specs.spec2 = dict_specs_result_obj['spec2']
+                            if "spec1" in dict_specs_result_obj.keys():
+                                goods_specs.spec1 = dict_specs_result_obj['spec1']
 
-                        goods_specs.save()
+                            if "barcode" in dict_specs_result_obj.keys():
+                                goods_specs.spec2 = dict_specs_result_obj['spec2']
+
+                            goods_specs.save()
+
+            else:
+                # 结束子循环
+                break
 
         else:
-            # 结束子循环
-            break
+            print(erp_r.text)
 
     # 返回请求结果
     return True
@@ -589,35 +604,41 @@ def storage_query(page_no=1, page_size=10):
     # 接口请求
     erp_post_url = erp_api_url + '/erp/base/storage/query'
     erp_r = requests.post(erp_post_url, json=erp_params)
-    erp_result_object = erp_r.json()
 
-    # 写日志
-    logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
+    if erp_r.content:
+        erp_result_object = erp_r.json()
 
-    # 写入数据库
-    if "data" in erp_result_object and len(erp_result_object['data']) > 0:
-        for dict_result_obj in erp_result_object['data']:
-            erp_storage = Storage()
-            if "storage_code" in dict_result_obj.keys():
-                erp_storage.storage_code = dict_result_obj['storage_code']
-            if "storage_name" in dict_result_obj.keys():
-                erp_storage.storage_name = dict_result_obj['storage_name']
-            if "status" in dict_result_obj.keys():
-                erp_storage.status = dict_result_obj['status']
+        # 写日志
+        logger.debug(erp_post_url + '\r\n' + str(erp_params) + '\r\n' + str(erp_result_object) + '\r\n')
 
-            # 检查仓库是否已经存在, 存在的则进行更新
-            storage_filter_result = Storage.objects.filter(storage_code=erp_storage.storage_code)
-            if len(storage_filter_result) > 0:
-                storage_filter_result.storage_name = erp_storage.storage_name
-                storage_filter_result.status = erp_storage.status
-                storage_filter_result.update()
-                # continue
-            else:
-                # 写入
-                erp_storage.save()
+        # 写入数据库
+        if "data" in erp_result_object and len(erp_result_object['data']) > 0:
+            for dict_result_obj in erp_result_object['data']:
+                erp_storage = Storage()
+                if "storage_code" in dict_result_obj.keys():
+                    erp_storage.storage_code = dict_result_obj['storage_code']
+                if "storage_name" in dict_result_obj.keys():
+                    erp_storage.storage_name = dict_result_obj['storage_name']
+                if "status" in dict_result_obj.keys():
+                    erp_storage.status = dict_result_obj['status']
+
+                # 检查仓库是否已经存在, 存在的则进行更新
+                result_queryset = Storage.objects.filter(storage_code=erp_storage.storage_code)
+                if len(result_queryset) > 0:
+                    for storage_result in result_queryset:
+                        storage_result.storage_name = erp_storage.storage_name
+                        storage_result.status = erp_storage.status
+                        storage_result.save()
+                    # continue
+                else:
+                    # 写入
+                    erp_storage.save()
+
+    else:
+        print(erp_r.text)
 
     # 返回请求结果
-    return erp_result_object
+    return True
 
 
 # 查询销售/线下出库单
@@ -839,11 +860,12 @@ def supplier_query(page_no=1, page_size=10):
                 supplier.status = dict_result_obj['status']
 
             # 检查供应商是否已经存在, 存在的则进行更新
-            supplier_filter_result = Supplier.objects.filter(supplier_code=supplier.supplier_code)
-            if len(supplier_filter_result) > 0:
-                supplier_filter_result.supplier_name = supplier.supplier_name
-                supplier_filter_result.status = supplier.status
-                supplier_filter_result.update()
+            result_queryset = Supplier.objects.filter(supplier_code=supplier.supplier_code)
+            if len(result_queryset) > 0:
+                for supplier_result in result_queryset:
+                    supplier_result.supplier_name = supplier.supplier_name
+                    supplier_result.status = supplier.status
+                    supplier_result.save()
             else:
                 # 写入
                 supplier.save()

@@ -75,7 +75,7 @@ class Trades(models.Model):
     seller_msg = models.CharField("卖家留言", max_length=512, null=True)
 
     def __str__(self):
-        return self.trade_id
+        return str(self.trade_id)
 
 
 # 订单明细
@@ -100,7 +100,7 @@ class Orders(models.Model):
     is_gift = models.BooleanField("明细是否赠品", default=False)
 
     def __str__(self):
-        return self.order_id
+        return str(self.order_id)
 
 
 # 商品
@@ -120,7 +120,7 @@ class Goods(models.Model):
     unit_name = models.CharField("单位", max_length=128, null=True)
 
     def __str__(self):
-        return self.goods_id
+        return str(self.goods_id)
 
 
 # 商品规格
@@ -142,7 +142,7 @@ class GoodsSpecs(models.Model):
     spec2 = models.CharField("规格2值", max_length=256, null=True)
 
     def __str__(self):
-        return self.goods_spec_id
+        return str(self.goods_spec_id)
 
 
 # 规格
@@ -164,7 +164,7 @@ class Specs(models.Model):
     prop3 = models.CharField("自定义规格", max_length=256, null=True)
 
     def __str__(self):
-        return self.spec_id
+        return str(self.spec_id)
 
 
 # 仓库
@@ -176,7 +176,7 @@ class Storage(models.Model):
     status = models.IntegerField("状态", default=0)
 
     def __str__(self):
-        return self.storage_id
+        return str(self.storage_id)
 
 
 # 库存
@@ -191,7 +191,7 @@ class Inventory(models.Model):
     underway = models.FloatField("在途库存", default=0)
 
     def __str__(self):
-        return self.inventory_id
+        return str(self.inventory_id)
 
 
 # 批次
@@ -204,7 +204,7 @@ class Batches(models.Model):
     produce_date = models.DateTimeField("成产日期", null=True)
 
     def __str__(self):
-        return self.batch_id
+        return str(self.batch_id)
 
 
 # 销售出库单
@@ -236,7 +236,7 @@ class SaleStock(models.Model):
     tp_tid = models.CharField("外部订单号", max_length=512, null=True)
 
     def __str__(self):
-        return self.sale_stock_id
+        return str(self.sale_stock_id)
 
 
 # 销售出库单明细
@@ -255,7 +255,7 @@ class SaleStockDetails(models.Model):
     unit = models.CharField("单位", max_length=512, null=True)
 
     def __str__(self):
-        return self.sale_stock_dDetail_id
+        return str(self.sale_stock_dDetail_id)
 
 
 # 供应商
@@ -267,4 +267,4 @@ class Supplier(models.Model):
     status = models.IntegerField("状态", default=0)
 
     def __str__(self):
-        return self.supplier_id
+        return str(self.supplier_id)
