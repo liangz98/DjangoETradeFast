@@ -2,7 +2,7 @@ apscheduler
 certifi==2019.6.16
 chardet==3.0.4
 concurrent-log-handler==0.9.16
-Django==2.2.1
+Django==2.2.24
 idna==2.8
 portalocker==1.5.1
 pypiwin32==223
