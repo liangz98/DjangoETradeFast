@@ -1,5 +1,5 @@
 apscheduler
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 concurrent-log-handler==0.9.16
 Django==2.2.1
